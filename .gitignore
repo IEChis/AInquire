@@ -1,0 +1,43 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+dist/
+dist-ssr/
+
+# local env files（请勿提交真实密钥）
+.env
+.env.local
+.env.*.local
+
+# logs / misc
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# editor
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# project-local memory / runtime config (may contain private notes, not source)
+.workbuddy/
+
+# test screenshots (debug artifacts, not part of the product)
+test-*.png
+*.tmp.png
+
+# tsc / vite build cache artifacts (compiled from vite.config.ts)
+*.tsbuildinfo
+vite.config.d.ts
+vite.config.js
+vite.config.js.timestamp-*.mjs
+
+# 构建过程说明文档
+UX_UI_DESIGN_SPEC.md
+PRODUCT_MASTER_SPEC.md

@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-paper text-ink font-sans antialiased;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 编辑感：标题使用衬线 */
+.font-display {
+  @apply font-serif;
+  letter-spacing: 0.01em;
+}
+
+/* 细发丝分割线 */
+.hairline {
+  @apply border-line;
+}
+
+/* 引用高亮（被 Citation 定位的原文） */
+.cite-highlight {
+  background-color: theme('colors.mark');
+  box-shadow: inset 0 0 0 1px theme('colors.mark-border');
+  border-radius: 4px;
+  transition: background-color 0.6s ease;
+}
+.cite-highlight.is-flashing {
+  background-color: #f6e6ad;
+  box-shadow: inset 0 0 0 1px #e4c95a;
+}
+
+/* 检索步骤的呼吸点 */
+.retrieving-dot {
+  @apply inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse-soft;
+}
+
+/* 滚动条克制 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #ddd5c7;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c9bfae;
+  background-clip: content-box;
+}
+
+/* 选区也柔和 */
+::selection {
+  background: #e9e4f5;
+}
+
+/* 选中文字的视觉让浏览器原生 ::selection 蓝紫底承担——不再对所属 chunk 做额外描边/底色/边条，
+ * 避免跨段选时外框突兀、占据高度、视觉过载。
+ * 浮动工具栏（✨AI解释）已经足以告诉用户"我正在等你选择动作"。 */
