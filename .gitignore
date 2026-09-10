@@ -41,3 +41,6 @@ vite.config.js.timestamp-*.mjs
 # 构建过程说明文档
 UX_UI_DESIGN_SPEC.md
 PRODUCT_MASTER_SPEC.md
+
+# tmp
+tmp/
