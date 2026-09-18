@@ -6,9 +6,13 @@
 **写在前面**：
 
 - 这是比较工具型的一款demo，起点考虑到了那些带着问题来看书的用户（而非希望自己细细阅读的类型）（咳咳怎么不算一种应试教育的产物呢？）。因为有的时候我们确实会抱有一种“功利心”去读某一本书，比如期末周速通、寻找论据支撑啥的，此时我们就希望能够快速针对自己的目标知识点进行理解学习。
-- 所以其实也算是有点满足我个人私心的一款工具，因为不得不说确实会想要能够快速了解一本书、或者是一份资料的核心内容，高效地把它吃透:-D
+- 所以其实也算是有点满足我个人私心的一款工具idea，因为不得不说确实会想要能够快速了解一本书、或者是一份资料的核心内容，高效地把它吃透，但是如果纯问AI的话有很担心幻觉问题:-D
 
 ---
+
+## ⭕ 交互总览
+
+![aiAskBook_交互设计图](.\aiAskBook_interaction.svg)
 
 ## ✨ 核心特性
 
@@ -21,51 +25,6 @@
 - **选中态克制**：选中时只靠浏览器原生高亮 + 浮动工具栏表达，不在正文上叠加边框/底色，跨段选也不突兀。
 - **可溯源 & 可降级**：每条 citation 做 Grounded 校验；真实 LLM 调用失败时自动降级到本地 Mock（示例书内容），始终有答案。
 - **笔记**：一键把「结论 + 书中依据」保存为笔记，存于 localStorage。
-
----
-
-## 🚀 跑起来
-
-```bash
-# 克隆后进入项目根目录
-git clone https://github.com/IEChis/aiReadingAssistant.git
-cd aiReadingAssistant
-
-npm install
-npm run dev        # http://localhost:5173/
-npm run build      # 生产构建
-npm run preview    # 预览构建产物
-```
-
-> 第一次运行前请先配置 `.env`（见下）。`npm install` 在已有 `node_modules` 时会很快。
-
----
-
-## 🔌 LLM 接入（.env 四项配置）
-
-> 复制 `.env.example` 为 `.env` 即可。**修改 `.env` 后需重启 dev server 才生效。**
-
-| 字段 | 含义 | 示例 |
-| --- | --- | --- |
-| `VITE_LLM_API_BASE` | 大模型 API base URL（OpenAI Chat Completions 协议） | `https://your-llm-provider.example/v1` |
-| `VITE_LLM_API_KEY`  | 你的 API Key（**不要提交到 Git**，已在 `.gitignore` 忽略） | `sk-xxxxx` |
-| `VITE_LLM_MODEL`    | 模型名 | `deepseek-v4-flash` |
-| `VITE_LLM_ENABLED`  | `true`=优先 LLM（失败回退 Mock）；`false`=纯 Mock 演示 | `true` |
-
-### 工作机制
-
-```
-浏览器 → POST /llm/chat/completions
-              │
-              └─ Vite Dev Proxy → VITE_LLM_API_BASE/chat/completions → DeepSeek/GPT/...
-```
-
-- 开发服务器已配置 proxy：`/llm/*` → `VITE_LLM_API_BASE/*`（**避免浏览器 CORS**）。
-- 客户端代码只用相对路径 `/llm/...`；生产部署时请改为你们自己的服务端网关代理。
-- 答案的每条 citation 都会做 **Grounded 校验**：模型必须返回 context 中真实存在的 chunkId，否则整条答案视为不 Grounded，自动降级到本地 Mock。
-
-> ⚠️ **Demo 阶段**：API Key 写在前端可读的 `.env` 里，会出现在浏览器 bundle 中。
-> 生产部署时请把 `VITE_LLM_API_BASE / KEY / MODEL` 移到**服务端环境变量**，由服务端中转调用，前端只调你们自己的 `/api/ask`。
 
 ---
 
@@ -135,9 +94,8 @@ src/
 
 ## ⚠️ 已知限制
 
-- 示例书内容为**原创化要点复述**（ Demo 用，非书籍原文）。
+- 示例书内容为原创化要点复述（ Demo 用，非书籍原文）。
 - 响应式仅 Desktop ≥1024 三栏常驻；<1024 阅读器由「原文」按钮切换。
-- 未做真实向量库（按 MVP 范围，检索为关键词 + 重叠评分）。
-- LLM 调用在浏览器侧，密钥会在 bundle 中可见（生产需服务端代理）。
+- 未做真实向量库（MVP 想法示例demo）。
 - 问答历史仅内存（刷新后清空），笔记存于 localStorage。
 
