@@ -12,7 +12,7 @@
 
 ## ⭕ 交互总览
 
-![aiAskBook_交互设计图](.\aiAskBook_interaction.svg)
+![aiAskBook_交互设计图](./aiAskBook_interaction@3x.png)
 
 ## ✨ 核心特性
 
